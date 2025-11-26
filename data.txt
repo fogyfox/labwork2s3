@@ -1,0 +1,3 @@
+SET myset 1 4 5 10 
+SET resultt_1 10 
+SET resultt_2 1 4 5 
