@@ -123,26 +123,32 @@ string removeElArr(Array* arr, int inx){
     return removedValue;
 }
 
-//новая функция для вывода всех различных подмассивов
 void printAllSubarrays(Array* arr) {
     int n = arr->size;
+    int total = 1 << n; //двоичная форма 2^n
     
-    cout << "Все различные подмассивы:" << endl;
+    cout << "Все различные подмножества:" << endl;
     
-    //пустой подмассив
-    cout << "{}" << endl;
-    
-    //генерируем все возможные подмассивы
-    for (int start = 0; start < n; start++) {
-        for (int end = start; end < n; end++) {
-            cout << "{";
-            for (int i = start; i <= end; i++) {
+    for (int mask = 0; mask < total; mask++) {
+        cout << "{";
+        bool first = true;
+        for (int i = 0; i < n; i++) {
+            if (mask & (1 << i)) { // двоичная форма 000, 001 и т.д
+                if (!first) cout << ", ";
                 cout << arr->data[i].value;
-                if (i < end) {
-                    cout << ", ";
-                }
+                first = false;
             }
-            cout << "}" << endl;
         }
+        cout << "}" << endl;
     }
 }
+
+
+//0 - 000 - нет - {}
+//1 - 001 - data[2] - {z}
+//2 - 010 - data[1] - {y}
+//3 - 011 - data[1], data[2] - {y, z}
+//4 - 100 - data[0] - {x}
+//5 - 101 - data[0], data[2] - {x, z}
+//6 - 110 - data[0], data[1] - {x, y}
+//7 - 111 - все - {x, y, z}
